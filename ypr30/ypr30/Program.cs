@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ypr30
 {
@@ -13,9 +14,9 @@ namespace ypr30
             int n = 10, m = 10;
             int i, j;
             string text = ""; //номера столбцов с положительными числаим 
-            int[] Mas = new int[m];
-            double[,] Matr1 = new double[n, m];
-            double[,] Matr2 = new double[n, m];
+            int[] Mas = new int[m];// массив с количеством положительных чисел в массиве 1 или 2 
+            double[,] Matr1 = new double[n, m]; //массив 1
+            double[,] Matr2 = new double[n, m]; //массив 2
 
             Random r = new Random();
 
@@ -55,31 +56,12 @@ namespace ypr30
                 Mas[j] = kollPlus(Matr1, j, m);
                 Console.Write("{0,7}", Mas[j]);
             }
-            Console.WriteLine();
+            Console.WriteLine();  
+            
             //Запись в text номера столбцов с положительными числами
-            for (j = 0; j < n; j++)
-            {
-                if (Mas[j] == 10)
-                {
-                    if (text != "")
-                    {
-                        text += ",";
-                    }
-                    text += (j + 1);
-                }
-            }
-            if (text != "")
-            {
-                Console.WriteLine("Номера столбцов с положительными числами для массива 1: " + text);
-            }
-            else if (text == "")
-            {
-                Console.WriteLine("В массиве 1 нет положительных столбцов");
-            }
+            WriteText(Mas, n, 1); // вызов процедуры вывод положительных столбцов из массива 1
 
             Mas = new int[m];//Обнуление данных из 1 массива
-            text = "";   //ООбнуление данных из 1 массива
-
             Console.WriteLine("Вывод положительных чисел из массива 2");
             for (j = 0; j < n; j++) // какая сторка сколько содержит положительных чисел 
             {
@@ -87,29 +69,13 @@ namespace ypr30
                 Console.Write("{0,7}", Mas[j]);
             }
             Console.WriteLine();
+            
             //Запись в text номера столбцов с положительными числами
-            for (j = 0; j < n; j++)
-            {
-                if (Mas[j] == 10)
-                {
-                    if (text != "")
-                    {
-                        text += ",";
-                    }
-                    text += (j + 1);
-                }
-            }
-            if (text != "")
-            {
-                Console.WriteLine("Номера столбцов с положительными числами для массива 2: " + text);
-            }
-            else if (text == "")
-            {
-                Console.WriteLine("В массиве 2 нет положительных столбцов");
-            }
+            WriteText(Mas,n,2); // вызов процедуры вывод положительных столбцов из массива 2
+
             Console.ReadKey();
         }
-        static int kollPlus(double[,] col, int j1, int m1)
+        static int kollPlus(double[,] col, int j1, int m1) // процедура подсчет положительных столбцов (col=Matr1; j1=j, m1=m)
         {
             int i1, kol = 0;
             for (i1 = 0; i1 < m1; i1++)
@@ -121,5 +87,30 @@ namespace ypr30
             }
             return kol;
         }
+        static void WriteText(int[] Mas, int n, int num)
+        {
+            int j;
+            string text = "";
+            for (j = 0; j < n; j++)
+            {
+                if (Mas[j] == 10)
+                {
+                    if (text != "")
+                    {
+                        text += ",";
+                    }
+                    text += (j + 1);
+                }
+            }
+            if (text != "")
+            {
+                Console.WriteLine("Номера столбцов с положительными числами для массива " + num + ": " + text);
+            }
+            else if (text == "")
+            {
+                Console.WriteLine("В массиве " + num + " нет положительных столбцов");
+            }
+        }
     }
+
 }
