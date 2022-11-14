@@ -12,8 +12,7 @@ namespace ypr30
         static void Main(string[] args)
         {
             int n = 10, m = 10;
-            int i, j;
-            string text = ""; //номера столбцов с положительными числаим 
+            int i, j;           
             int[] Mas = new int[m];// массив с количеством положительных чисел в массиве 1 или 2 
             double[,] Matr1 = new double[n, m]; //массив 1
             double[,] Matr2 = new double[n, m]; //массив 2
@@ -90,7 +89,7 @@ namespace ypr30
         static void WriteText(int[] Mas, int n, int num)
         {
             int j;
-            string text = "";
+            string text = ""; //номера столбцов с положительными числаим 
             for (j = 0; j < n; j++)
             {
                 if (Mas[j] == 10)
