@@ -12,16 +12,20 @@ namespace ypr30
         static void Main(string[] args)
         {
             int n = 10, m = 10;
-            Console.WriteLine("Введите колисество строк:");//Вводим размерность матрицы
-            n = Convert.ToInt32(Console.ReadLine());
+            string n1, m1;
+            Console.WriteLine("Введите колисество строк :");//Вводим размерность матрицы
+            n1 = Console.ReadLine();
             Console.WriteLine("Введите колисество столбцов:");
-            m = Convert.ToInt32(Console.ReadLine());
+            m1 = Console.ReadLine();
+            if (!int.TryParse(n1, out n) || !int.TryParse(m1, out m)) // Проверка символов на числа 
+                { 
+                    Console.WriteLine("Значения не является чисом");
+                }
 
-            if ((n > 0 && n <= 10) && (m > 0 && m <= 10))
+            else if ((n > 0 && n <= 10) && (m > 0 && m <= 10))
             {
-
-
                 int i, j;
+
                 int[] Mas = new int[m];// массив с количеством положительных чисел в массиве 1 или 2 
                 double[,] Matr1 = new double[n, m]; //массив 1
                 double[,] Matr2 = new double[n, m]; //массив 2
@@ -36,7 +40,6 @@ namespace ypr30
                         Matr2[i, j] = Convert.ToDouble(r.Next(-10, 40) / 10.0);//Заполняем матрицу 2
                     }
                 }
-
                 //Вывод 1
                 Console.WriteLine("Исходный массив 1");
                 for (i = 0; i < n; i++)
@@ -83,7 +86,7 @@ namespace ypr30
             }
             else
             {
-                Console.WriteLine("Введенго не верное значение массива");
+                Console.WriteLine("Введено не верное значение массива");
             }
             Console.ReadKey();
         }
