@@ -12,72 +12,85 @@ namespace ypr30
         static void Main(string[] args)
         {
             int n = 10, m = 10;
-            int i, j;           
-            int[] Mas = new int[m];// массив с количеством положительных чисел в массиве 1 или 2 
-            double[,] Matr1 = new double[n, m]; //массив 1
-            double[,] Matr2 = new double[n, m]; //массив 2
+            Console.WriteLine("Введите колисество строк:");//Вводим размерность матрицы
+            n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите колисество столбцов:");
+            m = Convert.ToInt32(Console.ReadLine());
 
-            Random r = new Random();
-
-            for (i = 0; i < n; i++)
+            if ((n > 0 && n <= 10) && (m > 0 && m <= 10))
             {
-                for (j = 0; j < m; j++)
+
+
+                int i, j;
+                int[] Mas = new int[m];// массив с количеством положительных чисел в массиве 1 или 2 
+                double[,] Matr1 = new double[n, m]; //массив 1
+                double[,] Matr2 = new double[n, m]; //массив 2
+
+                Random r = new Random();
+
+                for (i = 0; i < n; i++)
                 {
-                    Matr1[i, j] = Convert.ToDouble(r.Next(-10, 40) / 10.0);//Заполняем матрицу 1
-                    Matr2[i, j] = Convert.ToDouble(r.Next(-10, 40) / 10.0);//Заполняем матрицу 2
+                    for (j = 0; j < m; j++)
+                    {
+                        Matr1[i, j] = Convert.ToDouble(r.Next(-10, 40) / 10.0);//Заполняем матрицу 1
+                        Matr2[i, j] = Convert.ToDouble(r.Next(-10, 40) / 10.0);//Заполняем матрицу 2
+                    }
                 }
-            }
 
-            //Вывод 1
-            Console.WriteLine("Исходный массив 1");
-            for (i = 0; i < n; i++)
-            {
-                for (j = 0; j < m; j++)
+                //Вывод 1
+                Console.WriteLine("Исходный массив 1");
+                for (i = 0; i < n; i++)
                 {
-                    Console.Write("{0,7}", Matr1[i, j]);
+                    for (j = 0; j < m; j++)
+                    {
+                        Console.Write("{0,7}", Matr1[i, j]);
+                    }
+                    Console.WriteLine();
+                }
+                //Вывод 2
+                Console.WriteLine("Исходный массив 2");
+                for (i = 0; i < n; i++)
+                {
+                    for (j = 0; j < m; j++)
+                    {
+                        Console.Write("{0,7}", Matr2[i, j]);
+                    }
+                    Console.WriteLine();
+                }
+                // 1 Цикл
+                Console.WriteLine("Вывод положительных чисел из массива 1");
+                for (j = 0; j < m; j++) // какая сторка сколько содержит положительных чисел 
+                {
+                    Mas[j] = kollPlus(Matr1, j, n);
+                    Console.Write("{0,7}", Mas[j]);
                 }
                 Console.WriteLine();
-            }
-            //Вывод 2
-            Console.WriteLine("Исходный массив 2");
-            for (i = 0; i < n; i++)
-            {
-                for (j = 0; j < m; j++)
+
+                //Запись в text номера столбцов с положительными числами
+                WriteText(Mas, n, m, 1); // вызов процедуры вывод положительных столбцов из массива 1
+
+                Mas = new int[m];//Обнуление данных из 1 массива
+                Console.WriteLine("Вывод положительных чисел из массива 2");
+                for (j = 0; j < m; j++) // какая сторка сколько содержит положительных чисел 
                 {
-                    Console.Write("{0,7}", Matr2[i, j]);
+                    Mas[j] = kollPlus(Matr2, j, n); // kollPlus процедура подсчет положительных столбцов
+                    Console.Write("{0,7}", Mas[j]);
                 }
                 Console.WriteLine();
-            }
-            // 1 Цикл
-            Console.WriteLine("Вывод положительных чисел из массива 1");
-            for (j = 0; j < n; j++) // какая сторка сколько содержит положительных чисел 
-            {
-                Mas[j] = kollPlus(Matr1, j, m);
-                Console.Write("{0,7}", Mas[j]);
-            }
-            Console.WriteLine();  
-            
-            //Запись в text номера столбцов с положительными числами
-            WriteText(Mas, n, 1); // вызов процедуры вывод положительных столбцов из массива 1
 
-            Mas = new int[m];//Обнуление данных из 1 массива
-            Console.WriteLine("Вывод положительных чисел из массива 2");
-            for (j = 0; j < n; j++) // какая сторка сколько содержит положительных чисел 
-            {
-                Mas[j] = kollPlus(Matr2, j, m); // kollPlus процедура подсчет положительных столбцов
-                Console.Write("{0,7}", Mas[j]);
+                //Запись в text номера столбцов с положительными числами
+                WriteText(Mas, n, m, 2); // вызов процедуры вывод положительных столбцов из массива 2
             }
-            Console.WriteLine();
-            
-            //Запись в text номера столбцов с положительными числами
-            WriteText(Mas,n,2); // вызов процедуры вывод положительных столбцов из массива 2
-
+            else
+            {
+                Console.WriteLine("Введенго не верное значение массива");
+            }
             Console.ReadKey();
         }
-        static int kollPlus(double[,] col, int j1, int m1) // процедура подсчет положительных столбцов (col=Matr1; j1=j, m1=m)
+        static int kollPlus(double[,] col, int j1, int n1) // процедура подсчет положительных столбцов (col=Matr1; j1=j, n1=n)
         {
             int i1, kol = 0;
-            for (i1 = 0; i1 < m1; i1++)
+            for (i1 = 0; i1 < n1; i1++)
             {
                 if (col[i1, j1] > 0)
                 {
@@ -86,13 +99,13 @@ namespace ypr30
             }
             return kol;
         }
-        static void WriteText(int[] Mas, int n, int num)
+        static void WriteText(int[] Mas, int n, int m, int num)
         {
             int j;
             string text = ""; //номера столбцов с положительными числаим 
-            for (j = 0; j < n; j++)
+            for (j = 0; j < m; j++)
             {
-                if (Mas[j] == 10)
+                if (Mas[j] == n)
                 {
                     if (text != "")
                     {
